@@ -1,10 +1,10 @@
-version: "3.4"
+#version: "3.4"
 
 services:
   api:
     image: ghcr.io/saleor/saleor:3.20
     ports:
-      - 8000:8000
+      - 9002:8000
     restart: unless-stopped
     networks:
       - saleor-backend-tier
@@ -32,7 +32,7 @@ services:
     restart: unless-stopped
 
   db:
-    image: library/postgres:15-alpine
+    image: postgres:15-alpine  # Correct image name (library/postgres is valid, but this is cleaner)
     ports:
       - 5432:5432
     restart: unless-stopped
@@ -40,13 +40,17 @@ services:
       - saleor-backend-tier
     volumes:
       - saleor-db:/var/lib/postgresql/data
-      - ./replica_user.sql:/docker-entrypoint-initdb.d/replica_user.sql
     environment:
       - POSTGRES_USER=saleor
       - POSTGRES_PASSWORD=saleor
+      - POSTGRES_DB=saleor
+    # Comment out replica_user.sql unless you need it and verify it's present
+    # volumes:
+    #   - saleor-db:/var/lib/postgresql/data
+    #   - ./replica_user.sql:/docker-entrypoint-initdb.d/replica_user.sql
 
   redis:
-    image: library/redis:7.0-alpine
+    image: redis:7.0-alpine
     ports:
       - 6379:6379
     restart: unless-stopped
@@ -107,3 +111,4 @@ volumes:
 networks:
   saleor-backend-tier:
     driver: bridge
+
