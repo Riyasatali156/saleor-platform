@@ -1,0 +1,38 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"PersistentVolumeClaim","metadata":{"annotations":{},"name":"saleor-db","namespace":"default"},"spec":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"1Gi"}},"storageClassName":"standard-rwo"}}
+    pv.kubernetes.io/bind-completed: "yes"
+    pv.kubernetes.io/bound-by-controller: "yes"
+    volume.beta.kubernetes.io/storage-provisioner: pd.csi.storage.gke.io
+    volume.kubernetes.io/selected-node: gk3-saleor-cluster-riyas-nap-azlgr8n0-e8faaa46-tcxx
+    volume.kubernetes.io/storage-provisioner: pd.csi.storage.gke.io
+  creationTimestamp: "2024-09-05T04:02:05Z"
+  deletionGracePeriodSeconds: 0
+  deletionTimestamp: "2024-09-05T04:04:05Z"
+  name: saleor-db
+  namespace: default
+  resourceVersion: "130560"
+  uid: 1da665cf-4b08-4085-be97-037c13981609
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: standard-rwo
+  volumeMode: Filesystem
+  volumeName: pvc-1da665cf-4b08-4085-be97-037c13981609
+status:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  phase: Bound
+
